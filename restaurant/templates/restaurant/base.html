@@ -1,0 +1,31 @@
+
+{% load static %}
+<html>
+<head>
+    <title>Booming Brunch</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Booming Brunch</h1>
+    </header>
+
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{% url 'restaurant-main' %}">Main Page</a></li>
+                <li><a href="{% url 'restaurant-order' %}">Order Page</a></li>
+            </ul>
+        </nav>
+
+        {% block content %}
+        <!-- fill in this section with specific page detail -->
+        {% endblock %}
+
+        <hr>
+    </body>
+    <footer>
+        Page created by jasonnk@bu.edu.<br>
+        Generated at {{current_time}}.
+    </footer>
+</html>

@@ -1,0 +1,97 @@
+/* General body styling */
+body {
+    font-family: 'Georgia', serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    text-align: center; /* Center content by default */
+}
+
+/* Header styling */
+header {
+    background-color: #800020;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 2.2em;
+    letter-spacing: 1.5px;
+}
+
+/* Navigation styling */
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    background-color: #b00e23;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #f9f9f9;
+    color: #800020;
+    border-radius: 4px;
+}
+
+/* Content container */
+.content {
+    width: 80%;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styling */
+table {
+    margin: 0 auto; /* Center the table */
+    border-collapse: collapse;
+    width: 80%; /* Adjust width */
+}
+
+th, td {
+    text-align: center;
+    padding: 15px 30px;  /* Increase padding for more spacing between columns */
+    font-size: 1.2em;  /* Slightly larger font for readability */
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #b00e23;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Increased image size */
+td img {
+    width: 200px; /* Larger image width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #800020;
+    color: white;
+    margin-top: 40px;
+    font-size: 0.9em;
+}

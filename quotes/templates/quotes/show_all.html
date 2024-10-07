@@ -1,0 +1,23 @@
+<!-- show_all/templates/quotes/show_all.html -->
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+
+    <div class="grid-container">
+        <main>    
+            <h2>All quotes by Lebron James</h2>
+            <ul>
+                {% for q in quotes %}
+                    <li>{{q}}</li>
+                {% endfor %}
+            </ul>
+
+            <h2>All images of Lebron James</h2>
+            {% for img in images %}
+                <img src="{{ img }}" alt="Image of Lebron James" style="max-width: 100%;">
+            {% endfor %}
+
+
+        </main>    
+    </div>
+{% endblock %}

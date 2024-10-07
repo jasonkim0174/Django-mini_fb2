@@ -1,0 +1,40 @@
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block title %}Order Page{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h2>Place Your Order</h2>
+    <form method="POST" action="{% url 'restaurant-confirmation' %}">
+        {% csrf_token %}
+        <h3>Menu</h3>
+        <ul>
+            {% for item in menu_items %}
+            <li>
+                <input type="checkbox" name="menu_items" value="{{ item.name }}"> {{ item.name }} - ${{ item.price }}
+                {% if item.options %}
+                <br>Options: {{ item.options|join:", " }}
+                {% endif %}
+                {% if item.special %}
+                <br><strong>Daily Special: {{ item.special }}</strong>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h3>Customer Information</h3>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <h3>Special Instructions</h3>
+        <textarea name="instructions" rows="4" cols="50"></textarea><br>
+
+        <input type="submit" value="Place Order">
+    </form>
+</div>
+{% endblock %}

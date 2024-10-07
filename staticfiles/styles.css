@@ -1,14 +1,13 @@
-/* General body styling */
 body {
     font-family: 'Georgia', serif;
     background-color: #f9f9f9;
     color: #333;
     margin: 0;
     padding: 0;
-    text-align: center; /* Center content by default */
+    text-align: center; 
 }
 
-/* Header styling */
+
 header {
     background-color: #800020;
     color: white;
@@ -19,7 +18,7 @@ header {
     letter-spacing: 1.5px;
 }
 
-/* Navigation styling */
+
 nav ul {
     list-style: none;
     padding: 0;
@@ -47,7 +46,7 @@ nav ul li a:hover {
     border-radius: 4px;
 }
 
-/* Content container */
+
 .content {
     width: 80%;
     margin: 40px auto;
@@ -57,17 +56,17 @@ nav ul li a:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Table styling */
+
 table {
-    margin: 0 auto; /* Center the table */
+    margin: 0 auto; 
     border-collapse: collapse;
-    width: 80%; /* Adjust width */
+    width: 80%; 
 }
 
 th, td {
     text-align: center;
-    padding: 15px 30px;  /* Increase padding for more spacing between columns */
-    font-size: 1.2em;  /* Slightly larger font for readability */
+    padding: 15px 30px;  
+    font-size: 1.2em;  
     border-bottom: 1px solid #ddd;
 }
 
@@ -78,15 +77,13 @@ th {
     font-size: 1.2em;
 }
 
-/* Increased image size */
 td img {
-    width: 200px; /* Larger image width */
-    height: auto; /* Maintain aspect ratio */
+    width: 200px; 
+    height: auto; 
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Footer styling */
 footer {
     text-align: center;
     padding: 20px;

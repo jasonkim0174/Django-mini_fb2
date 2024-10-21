@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=1f3c=7#0k#d^$rlsl6d_psp=bc+$4$(cd007t^i&bnezs9tt*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-quotes.onrender.com', 'django-restaurant-ef8z.onrender.com', 'django-mini-fb.onrender.com', 'django-mini-fb2.onrender.com', '127.0.0.1']
+ALLOWED_HOSTS = ['django-quotes.onrender.com', 'django-restaurant-ef8z.onrender.com', 'django-mini-fb.onrender.com', 'django-mini-fb2.onrender.com', 'django-mini-fb3.onrender.com', '127.0.0.1']
 
 # Application definition
 

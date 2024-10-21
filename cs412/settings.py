@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os  # Import the os module
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=1f3c=7#0k#d^$rlsl6d_psp=bc+$4$(cd007t^i&bnezs9tt*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True  # Set to False for production
 
-ALLOWED_HOSTS = ['django-quotes.onrender.com', 'django-restaurant-ef8z.onrender.com', 'django-mini-fb.onrender.com', 'django-mini-fb2.onrender.com', 'django-mini-fb3.onrender.com', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'django-quotes.onrender.com', 
+    'django-restaurant-ef8z.onrender.com', 
+    'django-mini-fb.onrender.com', 
+    'django-mini-fb2.onrender.com', 
+    'django-mini-fb3.onrender.com', 
+    '127.0.0.1'
+]
 
 # Application definition
 
@@ -43,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Whitenoise for static file handling in production
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -59,7 +68,6 @@ TEMPLATES = [
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
-            ## A LINE HERE ##
             'string_if_invalid': 'WARNING: {{%s}} is not a valid context variable.',
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -116,21 +124,21 @@ USE_I18N = True
 USE_TZ = True
 
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-import os # operating system library
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
+    os.path.join(BASE_DIR, 'static')
 ]
+
+# Use WhiteNoise to serve static files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files (Uploaded images)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

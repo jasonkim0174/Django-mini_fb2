@@ -1,15 +1,14 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
-from .models import Profile, StatusMessage
-from .forms import CreateProfileForm, CreateStatusMessageForm
-from django.urls import reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .models import Image, Profile, StatusMessage
+from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
+from django.urls import reverse, reverse_lazy
 
-
-# Create your views here.
 class ShowAllProfilesView(ListView):
     model = Profile
     template_name = 'mini_fb/show_all_profiles.html'
     context_object_name = 'profiles'
+
 
 class ShowProfilePageView(DetailView):
     model = Profile
@@ -40,7 +39,41 @@ class CreateStatusMessageView(CreateView):
     def form_valid(self, form):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         form.instance.profile = profile
+        sm = form.save()
+        files = self.request.FILES.getlist('files')  
+        for file in files:
+            Image.objects.create(image_file=file, status_message=sm)
+
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+
+
+class UpdateProfileView(UpdateView):
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = 'mini_fb/update_profile_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('show_profile', kwargs={'pk': self.object.pk})
+
+
+class DeleteStatusMessageView(DeleteView):
+    model = StatusMessage
+    template_name = 'mini_fb/delete_status_form.html'
+    context_object_name = 'status_message'
+
+    def get_success_url(self):
+        profile_id = self.object.profile.pk
+        return reverse_lazy('show_profile', kwargs={'pk': profile_id})
+    
+
+class UpdateStatusMessageView(UpdateView):
+    model = StatusMessage
+    fields = ['message'] 
+    template_name = 'mini_fb/update_status_form.html'
+
+    def get_success_url(self):
+        profile_id = self.object.profile.pk
+        return reverse_lazy('show_profile', kwargs={'pk': profile_id})

@@ -28,17 +28,29 @@
                 {% for status in profile.get_status_messages %}
                     <li>
                         <strong>{{ status.timestamp|date:"F j, Y, g:i a" }}</strong>: {{ status.message }}
+
+                        {% if status.get_images %}
+                            <div class="status-images">
+                                <h4>Images:</h4>
+                                {% for img in status.get_images %}
+                                    <img src="{{ img.image_file.url }}" alt="Image for {{ status.message }}" class="status-image">
+                                    <p>Uploaded on: {{ img.timestamp|date:"F j, Y, g:i a" }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="status-actions">
+                            <a href="{% url 'update_status' status.pk %}" class="btn btn-secondary">Update</a>
+                            <a href="{% url 'delete_status' status.pk %}" class="btn btn-danger">Delete</a>
+                        </div>
                     </li>
                 {% empty %}
                     <li>No status messages available.</li>
                 {% endfor %}
             </ul>
         </div>
-        <a href="{% url 'create_status' profile.pk %}">Create a New Status</a> 
+
+        <a href="{% url 'create_status' profile.pk %}" class="btn btn-success">Create a New Status</a>
+        <a href="{% url 'update_profile' profile.pk %}" class="btn btn-primary">Update Profile</a>
     </div>
 {% endblock %}
-
-
-
-
-

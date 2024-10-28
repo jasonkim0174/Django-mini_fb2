@@ -22,6 +22,28 @@
             </tr>
         </table>
 
+        <!-- Friends section -->
+        <div class="friends-section">
+            <h3>{{ profile.firstname }}'s Friends:</h3>
+            <div class="friend-cards">
+                {% for friend in profile.get_friends %}
+                    <div class="friend-card">
+                        <a href="{% url 'show_profile' friend.pk %}">
+                            <img src="{{ friend.image_url }}" alt="{{ friend.firstname }}'s profile picture" class="friend-profile-pic">
+                            <p>{{ friend.firstname }} {{ friend.lastname }}</p>
+                        </a>
+                    </div>
+                {% empty %}
+                    <p>{{ profile.firstname }} has no friends yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Button to view friend suggestions -->
+        <div class="friend-suggestions-link">
+            <a href="{% url 'friend_suggestions' profile.pk %}" class="btn btn-info">View Friend Suggestions</a>
+        </div>
+
         <div class="status-messages">
             <h3>Status Messages:</h3>
             <ul>
@@ -40,6 +62,7 @@
                         {% endif %}
                         
                         <div class="status-actions">
+                            <a href="{% url 'news_feed' profile.pk %}" class="btn btn-info">View News Feed</a>
                             <a href="{% url 'update_status' status.pk %}" class="btn btn-secondary">Update</a>
                             <a href="{% url 'delete_status' status.pk %}" class="btn btn-danger">Delete</a>
                         </div>

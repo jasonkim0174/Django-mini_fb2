@@ -1,0 +1,34 @@
+<!-- mini_fb/templates/mini_fb/news_feed.html -->
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+    <h3>{{ profile.firstname }}'s News Feed</h3>
+
+    <div class="news-feed">
+        {% for status in news_feed %}
+            <div class="status-message">
+                <div class="status-header">
+                    <img src="{{ status.profile.image_url }}" alt="{{ status.profile.firstname }}'s profile picture" class="profile-pic">
+                    <strong>{{ status.profile.firstname }} {{ status.profile.lastname }}</strong>
+                    <span>{{ status.timestamp|date:"M d, Y, g:i a" }}</span>
+                </div>
+                <p>{{ status.message }}</p>
+
+                {% if status.get_images %}
+                    <div class="status-images">
+                        {% for img in status.get_images %}
+                            <img src="{{ img.image_file.url }}" alt="Image for {{ status.message }}" class="status-image">
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No status messages available.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Button to go back to the profile page -->
+    <div class="back-to-profile">
+        <a href="{% url 'show_profile' profile.pk %}" class="btn btn-secondary">Back to Profile</a>
+    </div>
+{% endblock %}

@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
     'django-mini-fb.onrender.com', 
     'django-mini-fb2.onrender.com', 
     'django-mini-fb3.onrender.com',
-    'django-mini-fb2-1.onrender.com'
+    'django-mini-fb2-1.onrender.com',
     '127.0.0.1'
 ]
 

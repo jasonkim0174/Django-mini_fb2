@@ -2,10 +2,12 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 # Profile Model (Unchanged)
 class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  
     firstname = models.TextField(blank=False)
     lastname = models.TextField(blank=False)
     city = models.TextField(blank=False)

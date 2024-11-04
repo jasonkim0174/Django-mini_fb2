@@ -46,6 +46,25 @@ nav ul li a:hover {
     border-radius: 4px;
 }
 
+nav ul li a, .nav-link-btn {
+    color: white;
+    background-color: #b00e23;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-block; 
+    font-family: inherit; 
+}
+
+nav ul li a:hover, .nav-link-btn:hover {
+    background-color: #f9f9f9;
+    color: #800020;
+}
+
 
 .content {
     width: 80%;
@@ -83,6 +102,7 @@ td img {
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
 
 footer {
     text-align: center;

@@ -8,7 +8,7 @@
             <div class="suggestion-card">
                 <img src="{{ suggestion.image_url }}" alt="{{ suggestion.firstname }}'s profile picture">
                 <p>{{ suggestion.firstname }} {{ suggestion.lastname }}</p>
-                <a href="{% url 'add_friend' profile.pk suggestion.pk %}" class="btn btn-primary">Add Friend</a>
+                <a href="{% url 'add_friend' suggestion.pk %}" class="btn btn-primary">Add Friend</a>
             </div>
         {% empty %}
             <p>No friend suggestions available at this time.</p>

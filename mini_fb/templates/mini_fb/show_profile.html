@@ -22,7 +22,6 @@
             </tr>
         </table>
 
-        <!-- Friends section -->
         <div class="friends-section">
             <h3>{{ profile.firstname }}'s Friends:</h3>
             <div class="friend-cards">
@@ -39,9 +38,8 @@
             </div>
         </div>
 
-        <!-- Button to view friend suggestions -->
         <div class="friend-suggestions-link">
-            <a href="{% url 'friend_suggestions' profile.pk %}" class="btn btn-info">View Friend Suggestions</a>
+            <a href="{% url 'friend_suggestions' %}" class="btn btn-info">View Friend Suggestions</a>
         </div>
 
         <div class="status-messages">
@@ -61,11 +59,12 @@
                             </div>
                         {% endif %}
                         
-                        <div class="status-actions">
-                            <a href="{% url 'news_feed' profile.pk %}" class="btn btn-info">View News Feed</a>
-                            <a href="{% url 'update_status' status.pk %}" class="btn btn-secondary">Update</a>
-                            <a href="{% url 'delete_status' status.pk %}" class="btn btn-danger">Delete</a>
-                        </div>
+                        {% if user.is_authenticated and user == profile.user %}
+                            <div class="status-actions">
+                                <a href="{% url 'update_status' status.pk %}" class="btn btn-secondary">Update</a>
+                                <a href="{% url 'delete_status' status.pk %}" class="btn btn-danger">Delete</a>
+                            </div>
+                        {% endif %}
                     </li>
                 {% empty %}
                     <li>No status messages available.</li>
@@ -73,7 +72,11 @@
             </ul>
         </div>
 
-        <a href="{% url 'create_status' profile.pk %}" class="btn btn-success">Create a New Status</a>
-        <a href="{% url 'update_profile' profile.pk %}" class="btn btn-primary">Update Profile</a>
+        {% if user.is_authenticated and user == profile.user %}
+        <a href="{% url 'create_status' %}">Create a New Status</a> 
+        <a href="{% url 'update_profile' %}">Update Profile</a>
+        <a href="{% url 'friend_suggestions' %}">View Friend Suggestions</a>
+        <a href="{% url 'news_feed'%}">View News Feed</a>
+    {% endif %}
     </div>
 {% endblock %}

@@ -38,9 +38,11 @@
             </div>
         </div>
 
+        {% if user.is_authenticated %}
         <div class="friend-suggestions-link">
             <a href="{% url 'friend_suggestions' %}" class="btn btn-info">View Friend Suggestions</a>
         </div>
+        {% endif %}
 
         <div class="status-messages">
             <h3>Status Messages:</h3>

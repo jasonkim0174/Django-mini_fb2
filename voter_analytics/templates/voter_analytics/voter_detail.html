@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Details</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+<h1>Voter Details</h1>
+
+<p><strong>Name:</strong> {{ voter.first_name }} {{ voter.last_name }}</p>
+<p><strong>Date of Birth:</strong> {{ voter.date_of_birth }}</p>
+<p><strong>Date of Registration:</strong> {{ voter.date_of_registration }}</p>
+<p><strong>Address:</strong> {{ voter.street_number }} {{ voter.street_name }}</p>
+
+<p><strong>Past Election Participation:</strong></p>
+<ul>
+  <li>v20state: {{ voter.v20state }}</li>
+  <li>v21town: {{ voter.v21town }}</li>
+  <li>v21primary: {{ voter.v21primary }}</li>
+  <li>v22general: {{ voter.v22general }}</li>
+  <li>v23town: {{ voter.v23town }}</li>
+</ul>
+
+<p><a href="{% url 'voters' %}">Back to Voter List</a></p>
+
+<p><a target="_blank" href="https://www.google.com/maps/search/{{ voter.street_number }} {{ voter.street_name }}">
+    See Google Maps
+</a></p>
+
+</body>
+</html>

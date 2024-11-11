@@ -7,6 +7,20 @@ body {
     text-align: center; 
 }
 
+h1 {
+    font-size: 2.5em;
+    color: #800020;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #b00e23;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
 
 header {
     background-color: #800020;
@@ -17,7 +31,6 @@ header {
     font-size: 2.2em;
     letter-spacing: 1.5px;
 }
-
 
 nav ul {
     list-style: none;
@@ -46,26 +59,6 @@ nav ul li a:hover {
     border-radius: 4px;
 }
 
-nav ul li a, .nav-link-btn {
-    color: white;
-    background-color: #b00e23;
-    text-decoration: none;
-    font-size: 1.2em;
-    padding: 10px 20px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    border: none;
-    cursor: pointer;
-    display: inline-block; 
-    font-family: inherit; 
-}
-
-nav ul li a:hover, .nav-link-btn:hover {
-    background-color: #f9f9f9;
-    color: #800020;
-}
-
-
 .content {
     width: 80%;
     margin: 40px auto;
@@ -75,11 +68,54 @@ nav ul li a:hover, .nav-link-btn:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+form {
+    margin: 20px 0;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="date"], select {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+legend {
+    font-weight: bold;
+    color: #800020;
+}
+
+button {
+    background-color: #b00e23;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #800020;
+}
 
 table {
     margin: 0 auto; 
     border-collapse: collapse;
-    width: 80%; 
+    width: 90%; 
 }
 
 th, td {
@@ -96,11 +132,13 @@ th {
     font-size: 1.2em;
 }
 
-td img {
-    width: 200px; 
-    height: auto; 
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+td a {
+    color: #800020;
+    font-weight: bold;
+}
+
+td a:hover {
+    color: #b00e23;
 }
 
 

@@ -1,0 +1,56 @@
+<h1>Graphs of Voter Data</h1>
+
+<p><a href="{% url 'voters' %}">Back to Voter List</a></p>
+
+
+<form method="get">
+  <label for="party">Party Affiliation:</label>
+  <select name="party_affiliation" id="party">
+    <option value="">--Select Party--</option>
+    <option value="D">Democratic</option>
+    <option value="R">Republican</option>
+    <option value="U">Unaffiliated</option>
+  </select>
+
+  <label for="min_dob">Min Date of Birth:</label>
+  <input type="date" name="min_dob" id="min_dob">
+
+  <label for="max_dob">Max Date of Birth:</label>
+  <input type="date" name="max_dob" id="max_dob">
+
+  <label for="voter_score">Voter Score:</label>
+  <select name="voter_score" id="voter_score">
+    <option value="">--Select Score--</option>
+    {% for score in voter_scores %}
+      <option value="{{ score }}">{{ score }}</option>
+    {% endfor %}
+  </select>
+
+  <fieldset>
+    <legend>Specific Elections</legend>
+    <label><input type="checkbox" name="v20state"> v20state</label>
+    <label><input type="checkbox" name="v21town"> v21town</label>
+    <label><input type="checkbox" name="v21primary"> v21primary</label>
+    <label><input type="checkbox" name="v22general"> v22general</label>
+    <label><input type="checkbox" name="v23town"> v23town</label>
+  </fieldset>
+
+  <button type="submit">Filter</button>
+</form>
+
+<div>
+    <h2>Voter Distribution by Year of Birth</h2>
+    {{ birth_year_graph|safe }}
+</div>
+
+<div>
+    <h2>Voter Distribution by Party Affiliation</h2>
+    {{ party_affiliation_graph|safe }}
+</div>
+
+<div>
+    <h2>Vote Count by Election</h2>
+    {{ vote_count_graph|safe }}
+</div>
+
+<p><a href="{% url 'voters' %}">Back to Voter List</a></p>

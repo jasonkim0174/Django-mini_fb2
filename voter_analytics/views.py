@@ -1,9 +1,11 @@
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Voter
-from django.db.models import Q
-from django.core.paginator import Paginator
+from django.db.models import Count
 import plotly.express as px
-import pandas as pd
+from datetime import datetime
+from plotly.io import to_html
+
 
 class VoterListView(ListView):
     model = Voter
@@ -12,119 +14,122 @@ class VoterListView(ListView):
     paginate_by = 100
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        
+        queryset = Voter.objects.all()
+
         party = self.request.GET.get('party_affiliation')
         min_dob = self.request.GET.get('min_dob')
         max_dob = self.request.GET.get('max_dob')
         voter_score = self.request.GET.get('voter_score')
-        
-        elections = {
-            'v20state': self.request.GET.get('v20state'),
-            'v21town': self.request.GET.get('v21town'),
-            'v21primary': self.request.GET.get('v21primary'),
-            'v22general': self.request.GET.get('v22general'),
-            'v23town': self.request.GET.get('v23town'),
-        }
+        elections = ['v20state', 'v21town', 'v21primary', 'v22general', 'v23town']
 
         if party:
-            queryset = queryset.filter(party_affiliation=party)
+            queryset = queryset.filter(party_affiliation=party.strip())
         if min_dob:
-            queryset = queryset.filter(date_of_birth__gte=min_dob)
+            queryset = queryset.filter(date_of_birth__year__gte=int(min_dob))
         if max_dob:
-            queryset = queryset.filter(date_of_birth__lte=max_dob)
+            queryset = queryset.filter(date_of_birth__year__lte=int(max_dob))
         if voter_score:
-            queryset = queryset.filter(voter_score=voter_score)
-        
-        for election, value in elections.items():
-            if value == 'on':  
+            queryset = queryset.filter(voter_score=int(voter_score))
+        for election in elections:
+            if self.request.GET.get(election):
                 queryset = queryset.filter(**{election: True})
 
-        return queryset
+        unique_voters = {}
+        unique_queryset = []
+        for voter in queryset:
+            unique_key = (voter.first_name, voter.last_name, voter.date_of_birth, voter.party_affiliation)
+            if unique_key not in unique_voters:
+                unique_voters[unique_key] = True
+                unique_queryset.append(voter)
+
+        return unique_queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['voter_scores'] = list(range(0, 6))  
+        context['party_affiliations'] = Voter.objects.values_list('party_affiliation', flat=True).distinct()
+        context['years'] = range(1900, datetime.now().year + 1)
+        context['voter_scores'] = Voter.objects.values_list('voter_score', flat=True).distinct()
         return context
-    
+
 class VoterDetailView(DetailView):
     model = Voter
     template_name = 'voter_analytics/voter_detail.html'
     context_object_name = 'voter'
 
 
-class GraphsView(ListView):
+class GraphListView(ListView):
     model = Voter
     template_name = 'voter_analytics/graphs.html'
     context_object_name = 'voters'
-
+    
     def get_queryset(self):
-        queryset = super().get_queryset()
-        
+        queryset = Voter.objects.all()
+
         party = self.request.GET.get('party_affiliation')
         min_dob = self.request.GET.get('min_dob')
         max_dob = self.request.GET.get('max_dob')
         voter_score = self.request.GET.get('voter_score')
-        
-        elections = {
-            'v20state': self.request.GET.get('v20state'),
-            'v21town': self.request.GET.get('v21town'),
-            'v21primary': self.request.GET.get('v21primary'),
-            'v22general': self.request.GET.get('v22general'),
-            'v23town': self.request.GET.get('v23town'),
-        }
+        elections = ['v20state', 'v21town', 'v21primary', 'v22general', 'v23town']
 
         if party:
-            queryset = queryset.filter(party_affiliation=party)
+            queryset = queryset.filter(party_affiliation=party.strip())
         if min_dob:
-            queryset = queryset.filter(date_of_birth__gte=min_dob)
+            queryset = queryset.filter(date_of_birth__year__gte=int(min_dob))
         if max_dob:
-            queryset = queryset.filter(date_of_birth__lte=max_dob)
+            queryset = queryset.filter(date_of_birth__year__lte=int(max_dob))
         if voter_score:
-            queryset = queryset.filter(voter_score=voter_score)
-        
-        for election, value in elections.items():
-            if value == 'on':  
+            queryset = queryset.filter(voter_score=int(voter_score))
+        for election in elections:
+            if self.request.GET.get(election):
                 queryset = queryset.filter(**{election: True})
 
-        return queryset
+        unique_voters = {}
+        unique_queryset = []
+        for voter in queryset:
+            unique_key = (voter.first_name, voter.last_name, voter.date_of_birth, voter.party_affiliation)
+            if unique_key not in unique_voters:
+                unique_voters[unique_key] = True
+                unique_queryset.append(voter)
+
+        return unique_queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['voter_scores'] = list(range(0, 6)) 
-        filtered_voters = self.get_queryset().values()
-        df = pd.DataFrame(filtered_voters)
+        
+        voters = self.get_queryset()
 
-        if not df.empty:
-            birth_year_hist = px.histogram(
-                df,
-                x='date_of_birth',
-                title='Voter distribution by Year of Birth',
-                nbins=30
-            )
-            context['birth_year_graph'] = birth_year_hist.to_html(full_html=False)
+        birth_years = [voter.date_of_birth.year for voter in voters]
+        birth_year_fig = px.histogram(birth_years, nbins=100, title="Voter Distribution by Year of Birth")
+        context['birth_year_chart'] = to_html(birth_year_fig, full_html=False)
 
-            party_pie_chart = px.pie(
-                df,
-                names='party_affiliation',
-                title='Voter distribution by Party Affiliation',
-                hole=0.4
-            )
-            context['party_affiliation_graph'] = party_pie_chart.to_html(full_html=False)
+        party_counts = {}
+        for voter in voters:
+            party = voter.party_affiliation
+            party_counts[party] = party_counts.get(party, 0) + 1
+        party_fig = px.pie(
+            names=list(party_counts.keys()),
+            values=list(party_counts.values()),
+            title="Voter Distribution by Party Affiliation"
+        )
 
-            election_columns = ['v20state', 'v21town', 'v21primary', 'v22general', 'v23town']
-            election_counts = df[election_columns].sum().reset_index(name='count')
-            election_counts.columns = ['election', 'count']
-            vote_count_chart = px.bar(
-                election_counts,
-                x='election',
-                y='count',
-                title='Vote Count by Election'
-            )
-            context['vote_count_graph'] = vote_count_chart.to_html(full_html=False)
-        else:
-            context['birth_year_graph'] = "No data available for the selected filters."
-            context['party_affiliation_graph'] = "No data available for the selected filters."
-            context['vote_count_graph'] = "No data available for the selected filters."
+        context['party_affiliation_chart'] = to_html(party_fig, full_html=False)
 
+        participation_data = {
+            '2020 State': sum(voter.v20state for voter in voters),
+            '2021 Town': sum(voter.v21town for voter in voters),
+            '2021 Primary': sum(voter.v21primary for voter in voters),
+            '2022 General': sum(voter.v22general for voter in voters),
+            '2023 Town': sum(voter.v23town for voter in voters),
+        }
+        election_fig = px.bar(
+            x=list(participation_data.keys()),
+            y=list(participation_data.values()),
+            title="Voter Participation in Elections"
+        )
+        context['election_participation_chart'] = to_html(election_fig, full_html=False)
+
+        context['party_affiliations'] = Voter.objects.values_list('party_affiliation', flat=True).distinct()
+        context['years'] = range(1900, datetime.now().year + 1)
+        context['voter_scores'] = Voter.objects.values_list('voter_score', flat=True).distinct()
+        
         return context

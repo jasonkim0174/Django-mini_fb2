@@ -39,18 +39,19 @@
 </form>
 
 <div>
-    <h2>Voter Distribution by Year of Birth</h2>
-    {{ birth_year_graph|safe }}
+  <h2>Voter Distribution by Year of Birth</h2>
+  {{ birth_year_chart|safe }}
 </div>
 
 <div>
-    <h2>Voter Distribution by Party Affiliation</h2>
-    {{ party_affiliation_graph|safe }}
+  <h2>Voter Distribution by Party Affiliation</h2>
+  {{ party_affiliation_chart|safe }}
 </div>
 
 <div>
-    <h2>Vote Count by Election</h2>
-    {{ vote_count_graph|safe }}
+  <h2>Vote Count by Election</h2>
+  {{ election_participation_chart|safe }}
 </div>
+
 
 <p><a href="{% url 'voters' %}">Back to Voter List</a></p>

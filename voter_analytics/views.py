@@ -2,9 +2,12 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Voter
 from django.db.models import Count
+import pandas as pd  
 import plotly.express as px
 from datetime import datetime
 from plotly.io import to_html
+
+
 
 
 class VoterListView(ListView):

@@ -23,11 +23,8 @@
         <h1>Delete Match</h1>
         <p>Are you sure you want to delete this match?</p>
         <form method="post">
-            <!-- Form for confirming the deletion of a match -->
             {% csrf_token %}
-            <!-- Includes a CSRF token for security to prevent cross-site request forgery -->
             <button type="submit" class="btn-danger">Delete</button>
-            <!-- Submit button for the form to confirm deletion -->
             <a href="{% url 'match-list' %}" class="btn-secondary">Cancel</a>
         </form>
     </div>

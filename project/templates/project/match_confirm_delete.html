@@ -1,0 +1,29 @@
+ <!-- Description: Template for confirming the deletion of a match. Displays a prompt asking for confirmation 
+             to delete the match, includes a secure form with CSRF protection, and provides options to 
+             either confirm the deletion or cancel and return to the match list. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Match</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Delete Match</h1>
+        <p>Are you sure you want to delete this match?</p>
+        <form method="post">
+            <!-- Form for confirming the deletion of a match -->
+            {% csrf_token %}
+            <!-- Includes a CSRF token for security to prevent cross-site request forgery -->
+            <button type="submit" class="btn-danger">Delete</button>
+            <!-- Submit button for the form to confirm deletion -->
+            <a href="{% url 'match-list' %}" class="btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

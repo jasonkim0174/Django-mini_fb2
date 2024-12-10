@@ -1,1 +1,0 @@
-https://django-mini-fb2-2.onrender.com/mini_fb/

@@ -1,0 +1,46 @@
+ <!-- Description: Template for updating the results of a match. Includes a form to update scores, match status, 
+             and save changes. Provides options to cancel and return to the match list, or delete the match 
+             if it exists. Extends the base template for a consistent layout across the application. -->
+
+
+{% extends "project/base.html" %}
+<!-- Extends the base template to maintain a consistent layout across the application -->
+
+
+{% block title %}
+    Update Match Result
+{% endblock %}
+
+{% block content %}
+<h1>Record Match Result</h1>
+
+<!-- Form for Updating Match -->
+<form method="post" class="form-container">
+    <!-- Includes a CSRF token for security to prevent cross-site request forgery -->
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="home_score">Home Team Score:</label>
+        {{ form.home_score }}
+    </div>
+    <div class="form-group">
+        <label for="away_score">Away Team Score:</label>
+        {{ form.away_score }}
+    </div>
+    <div class="form-group">
+        <label for="status">Match Status:</label>
+        {{ form.status }}
+    </div>
+    <div class="form-actions">
+        <button type="submit" class="btn-save">Save</button>
+        <a href="{% url 'match-list' %}" class="btn-cancel">Cancel</a>
+    </div>
+</form>
+
+<!-- Form for Deleting Match -->
+{% if match %}
+<form method="post" action="{% url 'match-delete' match.pk %}" class="delete-form">
+    {% csrf_token %}
+    <button type="submit" class="btn-danger">Delete Match</button>
+</form>
+{% endif %}
+{% endblock %}

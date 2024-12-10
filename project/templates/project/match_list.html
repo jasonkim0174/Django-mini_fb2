@@ -1,0 +1,100 @@
+ <!-- Description: Template for displaying a list of matches with filter options. Includes a filtering form 
+             for narrowing results by team, date, score range, and status. Displays matches in a table 
+             with an edit option for authenticated users. Provides clear feedback when no matches 
+             meet the selected criteria. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match List</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Match Results</h1>
+        
+        <!-- Link to go back to the homepage -->
+        <p><a href="{% url 'team-list' %}">Back to Home</a></p>
+        
+        <!-- Filtering Form -->
+        <form method="get" class="filter-form">
+            <div class="filter-group">
+                <label for="team">Team:</label>
+                <input type="text" id="team" name="team" value="{{ team_query }}" placeholder="Search by team name">
+            </div>
+            <div class="filter-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
+            </div>
+            <div class="filter-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date" value="{{ end_date }}">
+            </div>
+            <div class="filter-group">
+                <label for="min_home_score">Min Home Score:</label>
+                <input type="number" id="min_home_score" name="min_home_score" value="{{ min_home_score }}" placeholder="0">
+            </div>
+            <div class="filter-group">
+                <label for="max_home_score">Max Home Score:</label>
+                <input type="number" id="max_home_score" name="max_home_score" value="{{ max_home_score }}" placeholder="10">
+            </div>
+            <div class="filter-group">
+                <label for="min_away_score">Min Away Score:</label>
+                <input type="number" id="min_away_score" name="min_away_score" value="{{ min_away_score }}" placeholder="0">
+            </div>
+            <div class="filter-group">
+                <label for="max_away_score">Max Away Score:</label>
+                <input type="number" id="max_away_score" name="max_away_score" value="{{ max_away_score }}" placeholder="10">
+            </div>
+            <div class="filter-group">
+                <label for="status">Match Status:</label>
+                <select id="status" name="status">
+                    <option value="" {% if not status_query %}selected{% endif %}>All</option>
+                    <option value="Scheduled" {% if status_query == "Scheduled" %}selected{% endif %}>Scheduled</option>
+                    <option value="Completed" {% if status_query == "Completed" %}selected{% endif %}>Completed</option>
+                </select>
+            </div>
+            <div class="filter-actions">
+                <button type="submit" class="btn-primary">Filter</button>
+                <a href="{% url 'match-list' %}" class="btn-secondary">Clear Filters</a>
+            </div>
+        </form>
+
+        <!-- Match Results Table -->
+        <table class="match-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Home Team</th>
+                    <th>Score</th>
+                    <th>Away Team</th>
+                    {% if user.is_authenticated %}
+                    <th>Actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for match in matches %}
+                <tr>
+                    <td>{{ match.date }}</td>
+                    <td>{{ match.home_team.name }}</td>
+                    <td>{{ match.home_score }} - {{ match.away_score }}</td>
+                    <td>{{ match.away_team.name }}</td>
+                    {% if user.is_authenticated %}
+                    <td><a href="{% url 'match-edit' match.pk %}">Edit</a></td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No matches found for the selected filters.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

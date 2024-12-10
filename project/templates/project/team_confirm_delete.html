@@ -1,0 +1,25 @@
+ <!-- Description: Template for confirming the deletion of a team. Displays a dynamic message showing the 
+             team's name, includes a secure form with CSRF protection to confirm deletion, and provides 
+             an option to cancel and return to the team list. -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+
+    <title>Delete Team</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h1>Are you sure you want to delete {{ object.name }}?</h1>
+    <!-- Displays a confirmation message to the user, dynamically inserting the team's name using the context variable `object.name` -->
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+        <!-- Submit button to confirm the deletion -->
+        <a href="{% url 'team-list' %}">Cancel</a>
+        <!-- Link to cancel the action and return to the team list -->
+    </form>
+</body>
+</html>

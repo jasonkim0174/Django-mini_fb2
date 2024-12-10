@@ -1,0 +1,46 @@
+ <!-- Description: Template for displaying detailed information about a team, including its name, stats, and 
+             Player of the Season details (if available). Provides a link to navigate back to the team list. -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>{{ team.name }}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="team-container">
+        <!-- Team Name -->
+        <h1 class="team-name">{{ team.name }}</h1>
+        
+        <!-- Team Stats -->
+        <div class="team-stats">
+            <p><strong>Points:</strong> {{ team.points }}</p>
+            <p><strong>Matches Played:</strong> {{ team.matches_played }}</p>
+            <p><strong>Wins:</strong> {{ team.wins }}</p>
+            <p><strong>Losses:</strong> {{ team.losses }}</p>
+            <p><strong>Ties:</strong> {{ team.ties }}</p>
+        </div>
+
+        <!-- Player of the Season Section -->
+        {% if team.player_of_the_season %}
+        <div class="player-section">
+            <h2 class="player-title">Player of the Season</h2>
+            <ul class="player-stats">
+                <li><span>Name:</span> {{ team.player_of_the_season.name }}</li>
+                <li><span>Position:</span> {{ team.player_of_the_season.position }}</li>
+                <li><span>Goals:</span> {{ team.player_of_the_season.goals }}</li>
+                <li><span>Assists:</span> {{ team.player_of_the_season.assists }}</li>
+                <li><span>Matches Played:</span> {{ team.player_of_the_season.matches_played }}</li>
+            </ul>
+        </div>
+        {% else %}
+        <p class="no-player">No Player of the Season has been selected for this team.</p>
+        {% endif %}
+
+        <!-- Back Link -->
+        <a href="{% url 'team-list' %}" class="back-link">Back to Teams</a>
+    </div>
+</body>
+</html>

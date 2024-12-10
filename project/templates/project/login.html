@@ -1,0 +1,47 @@
+  <!-- Description: Template for the login page. Includes a form for users to enter their username and password, 
+             displays error messages for invalid submissions, and provides a link to the signup page 
+             for new users. Utilizes Django template tags. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h1>Login</h1>
+            {% if form.errors %}
+            <!-- Checks if the form submission has errors -->
+                <p class="error">Invalid username or password. Please try again.</p>
+            {% endif %}
+            <form method="post" class="login-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    {{ form.username }}
+                </div>
+                <!-- Group containing the password input -->
+                <div class="form-group">
+
+                    <label for="password">Password:</label>
+                    {{ form.password }}
+                    <!-- Renders the password field from the Django form -->
+                </div>
+                <button type="submit" class="btn-primary">Sign In</button>
+            </form>
+            <p class="signup-prompt">
+                <!-- Prompts the user to create an account if they don't have one -->
+                Don't have an account? 
+                <a href="{% url 'signup' %}" class="signup-link">Create a New Account</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+ <!-- Description: Template for the sign-up page. Includes a form for user registration with CSRF protection 
+             and displays fields as styled paragraphs. Provides a link to the login page for users 
+             who already have an account. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Main container for the sign-up page content -->
+        <h1>Create a New Account</h1>
+        <form method="post">
+        <!-- Form for user registration; uses the POST method to securely submit data -->
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>
+            Already have an account? 
+            <a href="{% url 'login' %}">Sign In</a>
+            <!-- Provides a link to the login page for users who already have an account -->
+        </p>
+    </div>
+</body>
+</html>

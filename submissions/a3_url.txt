@@ -1,0 +1,1 @@
+https://django-quotes.onrender.com/quotes/ 

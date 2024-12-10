@@ -1,0 +1,128 @@
+ <!-- Description: Template for displaying the "Elite Squads" page. Includes team standings, top teams, 
+             top scorers, and teams organized by league. Features a search bar, navigation links, 
+             and conditional content for authenticated users, such as options to edit or delete teams. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Elite Squads</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <h3>Top Teams</h3>
+            <ul class="top-teams">
+                <li>Tottenham Hotspur - 13 Points</li>
+                <li>Napoli - 12 Points</li>
+                <li>Athletico Madrid/Milan (Tie) - 11 Points</li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="content">
+            <h1 class="page-title">Elite Squads</h1>
+
+            <!-- Search Bar -->
+            <form method="get" action="{% url 'team-list' %}" class="search-bar">
+                <input type="text" name="q" placeholder="Search for a team">
+                <button type="submit">Search</button>
+            </form>
+
+            <!-- Navigation Links -->
+            <div class="navigation-links">
+                <a href="{% url 'match-list' %}">View Match Results</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}">Sign Out</a>
+                    <a href="{% url 'team-add' %}">Add New Team</a>
+                    <a href="{% url 'match-add' %}" >Add New Match</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Sign In</a>
+                {% endif %}
+            </div>
+
+            <!-- Welcome Message -->
+            {% if user.is_authenticated %}
+                <div class="welcome-message">
+                    Welcome, <span>{{ user.username }}</span>!
+                </div>
+            {% endif %}
+
+            <!-- Team Standings -->
+            <h2 class="teams-header">Team Standings</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Team</th>
+                            <th>Points</th>
+                            <th>Wins</th>
+                            <th>Losses</th>
+                            <th>Ties</th>
+                            <th>Matches Played</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for team in object_list %}
+                        <tr>
+                            <td><a href="{% url 'team-detail' team.pk %}">{{ team.name }}</a></td>
+                            <td>{{ team.points }}</td>
+                            <td>{{ team.wins }}</td>
+                            <td>{{ team.losses }}</td>
+                            <td>{{ team.ties }}</td>
+                            <td>{{ team.matches_played }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Teams by League -->
+            <h2 class="teams-header">Teams by League</h2>
+            {% for league in leagues %}
+            <div class="league-section">
+                <div class="league-header">
+                    {% if league.logo %}
+                    <!-- Displays the league's logo if it exists -->
+                        <img src="{{ league.logo.url }}" alt="{{ league.name }} Logo" class="league-logo">
+                    {% endif %}
+                    <h3 class="league-title">{{ league.season }} - {{ league.get_league_type_display }}</h3>
+                    <!-- Displays the league's season and type -->
+                </div>
+                <ul class="team-list">
+                    {% for team in league.teams.all %}
+                    <!-- Loop through teams in the current league -->
+                        <li class="team-item">
+                            <span class="team-info">
+                                <a href="{% url 'team-detail' team.pk %}" class="team-name">{{ team.name }}</a> - Points: <span class="team-points">{{ team.points }}</span>
+                            </span>
+                            {% if user.is_authenticated %}
+                            <!-- Conditional rendering for authenticated users -->
+                                <span class="team-actions">
+                                    <a href="{% url 'team-edit' team.pk %}" class="action-link edit-link">Edit</a>
+                                    |
+                                    <a href="{% url 'team-delete' team.pk %}" class="action-link delete-link">Delete</a>
+                                </span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+
+        </div>
+
+        <!-- Right Sidebar -->
+        <aside class="sidebar">
+            <h3>Top Scorers</h3>
+            <ul class="top-scorers">
+                <li>Son Heung Min - 4 Goals</li>
+                <li>Lamine Yamal - 3 Goals</li>
+                <li>Saka - 2 Goals</li>
+            </ul>
+        </aside>
+    </div>
+</body>
+</html>

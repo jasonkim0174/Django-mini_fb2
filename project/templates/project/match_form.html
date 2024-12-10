@@ -1,0 +1,40 @@
+ <!-- Description: Template for adding or editing a match. Includes a form for match details and options 
+             to save, cancel, or delete (if editing an existing match). Utilizes Django template tags. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Edit Match{% else %}Add Match{% endif %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container match-form-container">
+        <!-- Conditional Title -->
+        <h1>{% if form.instance.pk %}Edit Match{% else %}Add Match{% endif %}</h1>
+        
+        <!-- Form -->
+        <form method="post" class="match-form">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn-primary">Save</button>
+                <a href="{% url 'match-list' %}" class="btn-secondary">Cancel</a>
+            </div>
+        </form>
+
+        <!-- Delete Option -->
+        {% if form.instance.pk %}
+        <form method="post" action="{% url 'match-delete' form.instance.pk %}" class="delete-form">
+            {% csrf_token %}
+            <button type="submit" class="btn-danger">Delete Match</button>
+        </form>
+        {% endif %}
+
+    </div>
+</body>
+</html>

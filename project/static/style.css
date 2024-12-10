@@ -292,6 +292,24 @@ a:hover {
     box-sizing: border-box;
 }
 
+.btn-secondary {
+    background-color: #2ecc71;; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background-color: #218838; 
+}
+
+
 .btn-primary {
     background-color: #3498db;
     color: white;

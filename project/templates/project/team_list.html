@@ -35,7 +35,10 @@
             <div class="navigation-links">
                 <a href="{% url 'match-list' %}">View Match Results</a>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}">Sign Out</a>
+                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-secondary">Sign Out</button>
+                </form>
                     <a href="{% url 'team-add' %}">Add New Team</a>
                     <a href="{% url 'match-add' %}" >Add New Match</a>
                 {% else %}

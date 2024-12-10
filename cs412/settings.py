@@ -35,6 +35,7 @@ ALLOWED_HOSTS = [
     'django-mini-fb2-1.onrender.com',
     'django-mini-fb2-2.onrender.com',
     'django-voter-analytics.onrender.com',
+    'django-mini-fb2-3.onrender.com',
     '127.0.0.1'
 ]
 

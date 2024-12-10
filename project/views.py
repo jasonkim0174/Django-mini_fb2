@@ -2,7 +2,13 @@
              - Team and match CRUD operations
              - User authentication (signup)
              - Filtering and displaying teams and matches
-             - Updating team and match stats"""
+             - Updating team and match stats
+             File: admin.py
+            Author: Jason Kim
+            Email: jasonkim@bu.edu
+            Date: December 10, 2024
+             
+             """
 
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView

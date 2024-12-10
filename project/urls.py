@@ -1,5 +1,11 @@
 """Description: Defines the URL patterns for the application, mapping views to specific routes. Includes paths 
-             for team and match CRUD operations, user authentication (login and logout), and user registration."""
+             for team and match CRUD operations, user authentication (login and logout), and user registration.
+             File: admin.py
+            Author: Jason Kim
+            Email: jasonkim@bu.edu
+            Date: December 10, 2024
+             
+             """
 
 from django.urls import path
 from django.contrib.auth import views as auth_views

@@ -1,7 +1,14 @@
 """Description: Defines the database models for the application, including League, Team, Match, and Player. 
              These models represent the structure and relationships of the data, such as teams belonging 
              to leagues, matches involving teams, and players associated with teams. Includes methods for 
-             updating match results and calculating team stats."""
+             updating match results and calculating team stats.
+             File: admin.py
+            Author: Jason Kim
+            Email: jasonkim@bu.edu
+            Date: December 10, 2024
+             
+             
+             """
 
 
 from django.db import models

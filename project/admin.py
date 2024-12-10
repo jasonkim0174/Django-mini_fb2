@@ -1,3 +1,16 @@
+"""
+File: admin.py
+Author: Jason Kim
+Email: jasonkim@bu.edu
+Date: December 10, 2024
+Description: This file configures the Django admin interface for the Elite Squads application. It defines 
+             custom admin classes for the Team, Player, Match, and League models, specifying the fields 
+             to display, filters, and search functionalities. These customizations enhance the usability 
+             and organization of the admin panel for managing application data.
+"""
+
+
+
 from django.contrib import admin
 from .models import Team, Match, League, Player
 

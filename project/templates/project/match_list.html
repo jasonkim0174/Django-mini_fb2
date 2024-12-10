@@ -1,7 +1,13 @@
  <!-- Description: Template for displaying a list of matches with filter options. Includes a filtering form 
              for narrowing results by team, date, score range, and status. Displays matches in a table 
              with an edit option for authenticated users. Provides clear feedback when no matches 
-             meet the selected criteria. -->
+             meet the selected criteria. 
+            Author: Jason Kim
+            Email: jasonkim@bu.edu
+            Date: December 10, 2024
+            username: jasonnk
+             
+             -->
 
 
 <!DOCTYPE html>
@@ -78,6 +84,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!---Go through each match-->
                 {% for match in matches %}
                 <tr>
                     <td>{{ match.date }}</td>

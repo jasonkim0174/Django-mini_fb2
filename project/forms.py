@@ -1,6 +1,12 @@
 """Description: Contains the MatchForm class, a Django ModelForm for creating or editing Match instances.
              Automatically generates form fields based on the Match model and includes a custom time 
-             field with a specific widget for user input."""
+             field with a specific widget for user input.
+             File: admin.py
+            Author: Jason Kim
+            Email: jasonkim@bu.edu
+            Date: December 10, 2024
+             
+             """
 
 
 from django import forms

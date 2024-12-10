@@ -1,3 +1,17 @@
+/*
+File: styles.css
+Author: Jason Kim
+Email: jasonkim@bu.edu
+Date: December 10, 2024
+username: jasonnk
+Description: This CSS file provides styling for the Elite Squads web application. 
+             It includes responsive layouts, reusable button styles, table formatting, 
+             and visual enhancements for user interface elements such as navigation links, 
+             search bars, and team details. The styles ensure consistency and readability 
+             across various pages of the application.
+*/
+
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -512,3 +526,45 @@ a:hover {
     margin: 0;
 }
 
+
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-group label {
+    font-size: 1rem;
+    color: #34495e;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.filter-group input,
+.filter-group select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.filter-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-basis: 100%;
+    justify-content: flex-start;
+}
